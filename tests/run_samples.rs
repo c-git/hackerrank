@@ -19,7 +19,12 @@ fn sample_test_cases() -> Result<(), Box<dyn std::error::Error>> {
     let folder_input = samples_folder.join("input");
     let folder_output = samples_folder.join("output");
 
-    for file in fs::read_dir(folder_input)? {
+    for file in fs::read_dir(&folder_input).map_err(|e| {
+        format!(
+            "Failed to open input folder: {}. Error: {e}",
+            folder_input.to_string_lossy()
+        )
+    })? {
         let file = file?;
         let input_path = file.path();
         let output_filename = input_path
