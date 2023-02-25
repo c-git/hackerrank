@@ -7,7 +7,7 @@ use std::{
 };
 
 // Change problem name here <----------------------->
-const PROBLEM_NAME: &str = "three-month-preparation-kit-plus-minus";
+const PROBLEM_NAME: &str = "plus-minus";
 
 #[test]
 fn sample_test_cases() -> Result<(), Box<dyn std::error::Error>> {
