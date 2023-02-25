@@ -7,7 +7,7 @@ use std::{
 };
 
 // Change problem name here <----------------------->
-const PROBLEM_NAME: &str = "plus-minus";
+const PROBLEM_NAME: &str = "mini-max-sum";
 
 #[test]
 fn sample_test_cases() -> Result<(), Box<dyn std::error::Error>> {
