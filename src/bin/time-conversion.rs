@@ -29,7 +29,7 @@ fn timeConversion(s: &str) -> String {
         (hours + 12).to_string()
     };
 
-    hours + &min_and_sec
+    format!("{hours:0>2}{min_and_sec}").to_string()
 }
 
 fn is_am(s: &str) -> bool {
