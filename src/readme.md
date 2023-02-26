@@ -11,4 +11,5 @@ A separate binary is created for each problem. They can be found in `src/bin`. T
 - Download the sample test files from Hacker Rank
 - Extract the downloaded files (Expected folder name should match problem name, less suffix)
 - Update the problem name in `tests/run_samples.rs`. (Look for comment indicating which constant to update near the top of the file)
+- Set type of evaluation used for problem (set near problem name)
 - Then just use `cargo test` as normal to run the test cases on your solution

@@ -2,16 +2,27 @@ use assert_cmd::prelude::*; // Add methods on commands
 use predicates::prelude::*; // Used for writing assertions
 use std::{
     fs::{self, File},
-    path::PathBuf,
+    path::{Path, PathBuf},
     process::Command,
 };
 
-// Change problem name here <----------------------->
-const PROBLEM_NAME: &str = "mini-max-sum";
+fn get_problem_settings() -> ProblemSettings {
+    // Change problem name here <----------------------->
+
+    ProblemSettings {
+        problem_name: "time-conversion".to_string(),
+        eval_type: EvalType::File(Default::default()),
+    }
+}
 
 #[test]
 fn sample_test_cases() -> Result<(), Box<dyn std::error::Error>> {
-    let problem_samples_folder_name = PROBLEM_NAME.to_owned() + "-testcases"; // Add on default extension found on download
+    let ProblemSettings {
+        problem_name,
+        eval_type,
+    } = get_problem_settings();
+
+    let problem_samples_folder_name = problem_name.clone() + "-testcases"; // Add on default extension found on download
 
     let samples_folder: PathBuf = ["tests", "samples", &problem_samples_folder_name]
         .iter()
@@ -19,12 +30,27 @@ fn sample_test_cases() -> Result<(), Box<dyn std::error::Error>> {
     let folder_input = samples_folder.join("input");
     let folder_output = samples_folder.join("output");
 
+    println!("Input folder is: {}", folder_input.to_string_lossy());
     for file in fs::read_dir(&folder_input).map_err(|e| {
         format!(
             "Failed to open input folder: {}. Error: {e}",
             folder_input.to_string_lossy()
         )
     })? {
+        // Clear output from last run if necessary
+        if let EvalType::File(settings) = &eval_type {
+            let path = Path::new(&settings.file_name);
+            match path.try_exists() {
+                Ok(_) => fs::remove_file(path).map_err(|e| {
+                    format!(
+                        "An error occurred while removing {}. Error: {e}",
+                        path.display()
+                    )
+                })?,
+                Err(_) => todo!(),
+            }
+        }
+
         let file = file?;
         let input_path = file.path();
         let output_filename = input_path
@@ -47,10 +73,59 @@ fn sample_test_cases() -> Result<(), Box<dyn std::error::Error>> {
         );
 
         // Trim needed because sample output does not have a trailing line ending
-        Command::cargo_bin(PROBLEM_NAME)?
-            .stdin(File::open(file.path())?)
-            .assert()
-            .stdout(predicate::str::diff(expected_output).trim());
+        let mut cmd = Command::cargo_bin(&problem_name)?;
+        cmd.stdin(File::open(file.path())?);
+        match &eval_type {
+            EvalType::Stdout => {
+                cmd.assert()
+                    .stdout(predicate::str::diff(expected_output).trim());
+            }
+            EvalType::File(settings) => {
+                cmd.env(&settings.env_var_name, &settings.file_name);
+                cmd.assert().success();
+                let actual = fs::read_to_string(&settings.file_name)
+                    .map_err(|e| {
+                        format!(
+                            "Expected output of executable at {}. Error: {e}",
+                            &settings.file_name
+                        )
+                    })
+                    .expect("Failed to get actual output")
+                    .trim()
+                    .to_owned();
+                assert_eq!(actual, expected_output);
+            }
+        }
     }
     Ok(())
+}
+
+fn get_scrap_folder() -> PathBuf {
+    ["tests", "scrap"].iter().collect()
+}
+
+enum EvalType {
+    Stdout,
+    File(TestingFile),
+}
+struct TestingFile {
+    env_var_name: String,
+    file_name: String,
+}
+
+impl Default for TestingFile {
+    fn default() -> Self {
+        Self {
+            env_var_name: "OUTPUT_PATH".to_string(),
+            file_name: get_scrap_folder()
+                .join("output_file.txt")
+                .to_string_lossy()
+                .to_string(),
+        }
+    }
+}
+
+struct ProblemSettings {
+    problem_name: String,
+    eval_type: EvalType,
 }

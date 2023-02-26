@@ -2,5 +2,6 @@
     "cSpell.words": [
         "hackerrank",
         "testcases"
-    ]
+    ],
+    "code-runner.customCommand": "cargo test --test run_samples"
 }
