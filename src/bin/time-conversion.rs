@@ -30,7 +30,7 @@ fn timeConversion(s: &str) -> String {
         (hours + 12).to_string()
     };
 
-    format!("{hours:0>2}{min_and_sec}").to_string()
+    format!("{hours:0>2}{min_and_sec}")
 }
 
 fn is_am(s: &str) -> bool {
@@ -43,7 +43,7 @@ fn get_hours(s: &str) -> u8 {
         .parse()
         .expect("Expected numbers based on question")
 }
-
+#[allow(clippy::uninlined_format_args)]
 fn main() {
     let stdin = io::stdin();
     let mut stdin_iterator = stdin.lock().lines();
