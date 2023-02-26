@@ -104,6 +104,7 @@ fn get_scrap_folder() -> PathBuf {
     ["tests", "scrap"].iter().collect()
 }
 
+#[allow(dead_code)]
 enum EvalType {
     Stdout,
     File(TestingFile),

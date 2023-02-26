@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 use std::io::{self, BufRead};
 
 /*
@@ -25,7 +26,7 @@ fn main() {
     let stdin = io::stdin();
     let mut stdin_iterator = stdin.lock().lines();
 
-    let n = stdin_iterator
+    let _n = stdin_iterator
         .next()
         .unwrap()
         .unwrap()

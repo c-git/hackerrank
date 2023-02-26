@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+#![allow(non_snake_case)]
 use std::io::{self, BufRead};
 
 /*
@@ -8,7 +10,7 @@ use std::io::{self, BufRead};
 
 fn miniMaxSum(arr: &[i32]) {
     assert!(
-        arr.len() > 0,
+        !arr.is_empty(),
         "Question stated the input would be exactly 5 numbers. Empty slice not expected"
     );
     let mut min_pos = 0;
