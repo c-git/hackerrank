@@ -68,6 +68,7 @@ fn sample_test_cases() -> Result<(), Box<dyn std::error::Error>> {
         let expected_output = fs::read_to_string(&output_path)
             .map_err(|e| format!("Failed to load output: {output_path_as_str} Error:{e}"))?
             .trim()
+            .replace("\r\n", "\n")
             .to_owned();
 
         // Log which input for ease of reference on error
@@ -83,7 +84,7 @@ fn sample_test_cases() -> Result<(), Box<dyn std::error::Error>> {
         match &eval_type {
             EvalType::Stdout => {
                 cmd.assert()
-                    .stdout(predicate::str::diff(expected_output).trim());
+                    .stdout(predicate::str::diff(expected_output).trim().normalize());
             }
             EvalType::File(settings) => {
                 cmd.env(&settings.env_var_name, &settings.file_name);
