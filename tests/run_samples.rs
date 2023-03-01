@@ -12,6 +12,7 @@ fn get_problem_settings() -> ProblemSettings {
     ProblemSettings {
         problem_name: "camel-case".to_string(),
         eval_type: EvalType::Stdout,
+        // eval_type: EvalType::File(Default::default()),
     }
 }
 
@@ -41,13 +42,17 @@ fn sample_test_cases() -> Result<(), Box<dyn std::error::Error>> {
         if let EvalType::File(settings) = &eval_type {
             let path = Path::new(&settings.file_name);
             match path.try_exists() {
-                Ok(_) => fs::remove_file(path).map_err(|e| {
+                Ok(true) => fs::remove_file(path).map_err(|e| {
                     format!(
                         "An error occurred while removing {}. Error: {e}",
                         path.display()
                     )
                 })?,
-                Err(_) => todo!(),
+                Ok(false) => (), // Do nothing there is no file to delete
+                Err(e) => panic!(
+                    "Error while check if file exists. Filename: {}. Error: {e}",
+                    path.display()
+                ),
             }
         }
 
