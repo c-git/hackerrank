@@ -10,8 +10,8 @@ fn get_problem_settings() -> ProblemSettings {
     // Change problem name here <----------------------->
 
     ProblemSettings {
-        problem_name: "breaking-best-and-worst-records".to_string(),
-        eval_type: EvalType::File(Default::default()),
+        problem_name: "camel-case".to_string(),
+        eval_type: EvalType::Stdout,
     }
 }
 
