@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 use std::env;
 use std::fs::File;
 use std::io::{self, BufRead, Write};
@@ -10,7 +11,24 @@ use std::io::{self, BufRead, Write};
  */
 
 fn lonelyinteger(a: &[i32]) -> i32 {
-    todo!()
+    let mut seen = HashSet::new();
+    for i in a {
+        if seen.contains(i) {
+            seen.remove(i);
+        } else {
+            seen.insert(i);
+        }
+    }
+    assert!(
+        seen.len() == 1,
+        "Based on odd number of values this should always be true if all others are duplicated"
+    );
+    if let Some(val) = seen.into_iter().next() {
+        return *val;
+    }
+    unreachable!(
+        "Based on the assertion there is one value in seen and it should be returned above"
+    );
 }
 
 fn main() {
