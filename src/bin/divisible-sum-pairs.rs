@@ -13,8 +13,16 @@ use std::io::{self, BufRead, Write};
  *  3. INTEGER_ARRAY ar
  */
 
-fn divisibleSumPairs(n: i32, k: i32, ar: &[i32]) -> i32 {
-    todo!()
+fn divisibleSumPairs(_n: i32, k: i32, ar: &[i32]) -> i32 {
+    let mut result = 0;
+    for i in 0..ar.len() {
+        for j in i + 1..ar.len() {
+            if (ar[i] + ar[j]) % k == 0 {
+                result += 1;
+            }
+        }
+    }
+    result
 }
 
 fn main() {
@@ -46,5 +54,5 @@ fn main() {
 
     let result = divisibleSumPairs(n, k, &ar);
 
-    writeln!(&mut fptr, "{}", result).ok();
+    writeln!(&mut fptr, "{result}").ok();
 }
