@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::env;
 use std::fs::File;
 use std::io::{self, BufRead, Write};
@@ -12,7 +13,30 @@ use std::io::{self, BufRead, Write};
  */
 #[allow(non_snake_case)]
 fn matchingStrings(strings: &[String], queries: &[String]) -> Vec<i32> {
-    todo!()
+    // Insert queries into a map
+    let mut word_counts = HashMap::new();
+    for query in queries {
+        word_counts.insert(query, 0);
+    }
+
+    // Loop through strings and update queries counts
+    for s in strings {
+        if let Some(count) = word_counts.get_mut(s) {
+            *count += 1;
+        }
+    }
+
+    // Assemble output from counts collected
+    let mut result = vec![];
+    for query in queries {
+        result.push(
+            *word_counts
+                .get(query)
+                .expect("ALL Words should have been in the map"),
+        )
+    }
+
+    result
 }
 
 fn main() {
