@@ -10,7 +10,8 @@ use std::io::{self, BufRead, Write};
  */
 #[allow(non_snake_case)]
 fn flippingBits(n: i64) -> i64 {
-    (!(n as u32)) as i64
+    // (!(n as u32)) as i64
+    (u32::MAX - (n as u32)) as i64
 }
 
 fn main() {
