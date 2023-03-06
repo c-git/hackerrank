@@ -10,7 +10,16 @@ use std::io::{self, BufRead, Write};
  */
 #[allow(non_snake_case)]
 fn gradingStudents(grades: &[i32]) -> Vec<i32> {
-    todo!()
+    let mut result = vec![];
+    for &grade in grades {
+        let diff = 5 - grade % 5;
+        result.push(if grade >= 38 && diff < 3 {
+            grade + diff
+        } else {
+            grade
+        });
+    }
+    result
 }
 
 fn main() {
