@@ -11,14 +11,12 @@ use std::io::{self, BufRead, Write};
 
 #[allow(non_snake_case)]
 fn diagonalDifference(arr: &[Vec<i32>]) -> i32 {
-    let mut primary = 0;
-    let mut secondary = 0;
+    let mut result = 0;
     let n = arr.len();
     for (i, row) in arr.iter().enumerate() {
-        primary += row[i];
-        secondary += row[n - 1 - i];
+        result += row[i] - row[n - 1 - i];
     }
-    (primary - secondary).abs()
+    result.abs()
 }
 
 fn main() {
