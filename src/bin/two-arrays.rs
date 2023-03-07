@@ -30,7 +30,7 @@ fn twoArrays(k: i32, A: &[i32], B: &[i32]) -> String {
         // Find smallest value in B[i:] that meets the requirements
         let b_ind = find_smallest_valid(k, a, &B[i..]);
         if let Some(b_ind) = b_ind {
-            B.swap(i, b_ind);
+            B.swap(i, b_ind + i);
         } else {
             return false_value.to_string();
         }
