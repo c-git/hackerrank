@@ -10,39 +10,23 @@ use std::io::{self, BufRead, Write};
  */
 #[allow(non_snake_case)]
 fn flippingMatrix(matrix: &[Vec<i32>]) -> i32 {
-    let mut is_left_larger = vec![];
+    // After reviewing editorial (Didn't clock that each cell could be independently set before reading the editorial)
     let n2 = matrix.len();
-    let n = n2 / 2;
-    for row in matrix.iter() {
-        let left: i32 = row[0..n].iter().sum();
-        let right: i32 = row[n..n2].iter().sum();
-        is_left_larger.push(left >= right);
-    }
-
+    let n = matrix.len() / 2;
     let mut result = 0;
-    for col in 0..n {
-        // Calculate value of left
-        let mut top = 0;
-        for row in 0..n {
-            let col = if is_left_larger[row] {
-                col
-            } else {
-                n2 - col - 1
-            };
-            top += matrix[row][col];
-        }
 
-        // Calculate value of right
-        let mut bottom = 0;
-        for row in n..n2 {
-            let col = if is_left_larger[row] {
-                col
-            } else {
-                n2 - col - 1
-            };
-            bottom += matrix[row][col];
+    // Each cell has 4 possible positions so pick the max from each position
+    for row in 0..n {
+        for col in 0..n {
+            result += [
+                matrix[row][col],
+                matrix[n2 - row - 1][col],
+                matrix[n2 - row - 1][n2 - col - 1],
+                matrix[row][n2 - col - 1],
+            ]
+            .iter()
+            .fold(i32::MIN, |a, b| a.max(*b));
         }
-        result += if top > bottom { top } else { bottom };
     }
     result
 }
