@@ -19,9 +19,9 @@ fn birthday(s: &[i32], d: i32, m: i32) -> i32 {
     if sum == d {
         result += 1;
     }
-    for i in m + 1..s.len() {
-        let start_ind = i - m - 1;
-        sum -= s[start_ind];
+    for i in m..s.len() {
+        let old_pos = i - m;
+        sum -= s[old_pos];
         sum += s[m];
         if sum == d {
             result += 1;
