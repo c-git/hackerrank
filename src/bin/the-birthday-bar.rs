@@ -22,7 +22,7 @@ fn birthday(s: &[i32], d: i32, m: i32) -> i32 {
     for i in m..s.len() {
         let old_pos = i - m;
         sum -= s[old_pos];
-        sum += s[m];
+        sum += s[i];
         if sum == d {
             result += 1;
         }
