@@ -15,11 +15,17 @@ use std::io::{self, BufRead, Write};
 fn birthday(s: &[i32], d: i32, m: i32) -> i32 {
     let mut result = 0;
     let m = m as usize;
-    let len = s.len() - m + 1;
-    for i in 0..len {
-        if s[i..i + m].iter().sum::<i32>() == d {
+    let mut sum: i32 = s[0..m].iter().sum();
+    if sum == d {
+        result += 1;
+    }
+    for i in m + 1..s.len() {
+        let start_ind = i - m - 1;
+        sum -= s[start_ind];
+        sum += s[m];
+        if sum == d {
             result += 1;
-        };
+        }
     }
     result
 }
