@@ -10,7 +10,7 @@ fn get_problem_settings() -> ProblemSettings {
     // Change problem name here <----------------------->
 
     ProblemSettings {
-        problem_name: "strings-xor".to_string(),
+        problem_name: "sock-merchant".to_string(),
         // eval_type: EvalType::Stdout,
         eval_type: EvalType::File(Default::default()),
     }
@@ -115,6 +115,7 @@ enum EvalType {
     Stdout,
     File(TestingFile),
 }
+
 struct TestingFile {
     env_var_name: String,
     file_name: String,
