@@ -10,7 +10,7 @@ fn get_problem_settings() -> ProblemSettings {
     // Change problem name here <----------------------->
 
     ProblemSettings {
-        problem_name: "sock-merchant".to_string(),
+        problem_name: "migratory-birds".to_string(),
         // eval_type: EvalType::Stdout,
         eval_type: EvalType::File(Default::default()),
     }
