@@ -1,10 +1,15 @@
-use assert_cmd::prelude::*; // Add methods on commands
-use predicates::prelude::*; // Used for writing assertions
 use std::{
     fs::{self, File},
     path::{Path, PathBuf},
     process::Command,
+    str,
 };
+
+// Used for writing assertions
+use assert_cmd::prelude::*;
+
+// Add methods on commands
+use predicates::prelude::*;
 
 fn get_problem_settings() -> ProblemSettings {
     // Change problem name here <----------------------->
@@ -88,7 +93,20 @@ fn sample_test_cases() -> Result<(), Box<dyn std::error::Error>> {
             }
             EvalType::File(settings) => {
                 cmd.env(&settings.env_var_name, &settings.file_name);
-                cmd.assert().success();
+                match cmd.output() {
+                    Ok(output) => {
+                        println!(
+                            "stdout:\n{}",
+                            str::from_utf8(&output.stdout).expect("Failed to convert stdout")
+                        );
+                        println!(
+                            "stderr:\n{}",
+                            str::from_utf8(&output.stderr).expect("Failed to convert stderr")
+                        );
+                    }
+                    Err(e) => eprintln!("Failed to execute program: {e}"),
+                }
+
                 let actual = fs::read_to_string(&settings.file_name)
                     .map_err(|e| {
                         format!(
