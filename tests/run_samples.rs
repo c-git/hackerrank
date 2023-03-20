@@ -15,7 +15,7 @@ fn get_problem_settings() -> ProblemSettings {
     // Change problem name here <----------------------->
 
     ProblemSettings {
-        problem_name: "maximum-perimeter-triangle".to_string(),
+        problem_name: "drawing-book".to_string(),
         // eval_type: EvalType::Stdout,
         eval_type: EvalType::File(Default::default()),
     }
