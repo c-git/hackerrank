@@ -1,3 +1,4 @@
+use std::collections::BTreeMap;
 use std::env;
 use std::fs::File;
 use std::io::{self, BufRead, Write};
@@ -11,31 +12,30 @@ use std::io::{self, BufRead, Write};
 
 #[allow(non_snake_case)]
 fn pickingNumbers(a: &[i32]) -> i32 {
-    debug_assert!(a.len() >= 2); // Taken from constraints on the question
-    let mut table: Vec<i32> = Vec::with_capacity(a.len());
-    let mut longest = 0;
-    for outer in 0..a.len() {
-        // Create a spot for the current value
-        table.push(1); // Will always be at least this digit long
-
-        // Store value in a variable to make code easier to read and avoid the double memory ref for each read in the loop below
-        let curr_val = a[outer];
-        for inner in 0..outer {
-            if (a[inner] - curr_val).abs() <= 1 {
-                let candidate_length = table[inner] + 1;
-                if candidate_length > table[outer] {
-                    table[outer] = candidate_length;
-                }
-            }
-        }
-
-        // Update longest if this one is longer
-        if table[outer] > longest {
-            longest = table[outer];
+    // After looking at the editorial I understand now that all the values in the subarray must be within 1 abs diff of each other not each value 1 abs from the one next to it
+    let mut frequencies = BTreeMap::new();
+    for val in a {
+        if frequencies.contains_key(val) {
+            *frequencies.get_mut(val).unwrap() += 1;
+        } else {
+            frequencies.insert(val, 1);
         }
     }
-
-    longest
+    let (last_key, last_val) = frequencies
+        .first_key_value()
+        .expect("Assuming at min 2 values based on constraints");
+    let (mut last_key, mut last_val) = (**last_key, *last_val); // Get copies for values instead
+    let mut largest_val = last_val;
+    for (&curr_key, curr_val) in frequencies {
+        if curr_key - last_key == 1 {
+            largest_val = largest_val.max(curr_val + last_val)
+        } else {
+            largest_val = largest_val.max(curr_val);
+        }
+        last_key = curr_key;
+        last_val = curr_val;
+    }
+    largest_val
 }
 
 fn main() {
