@@ -22,7 +22,8 @@ fn pickingNumbers(a: &[i32]) -> i32 {
         }
     }
     let (last_key, last_val) = frequencies
-        .first_key_value()
+        .iter()
+        .next()
         .expect("Assuming at min 2 values based on constraints");
     let (mut last_key, mut last_val) = (**last_key, *last_val); // Get copies for values instead
     let mut largest_val = last_val;
