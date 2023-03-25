@@ -25,5 +25,5 @@ fn main() {
 
     let result = strings_xor(&s, &t);
 
-    writeln!(&mut fptr, "{}", result).ok();
+    writeln!(&mut fptr, "{result}").ok();
 }
