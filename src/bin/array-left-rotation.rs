@@ -36,7 +36,7 @@ fn main() {
         .map(|s| s.to_string())
         .collect();
 
-    let n = first_multiple_input[0].trim().parse::<i32>().unwrap();
+    let _n = first_multiple_input[0].trim().parse::<i32>().unwrap();
 
     let d = first_multiple_input[1].trim().parse::<i32>().unwrap();
 
