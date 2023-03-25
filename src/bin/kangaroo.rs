@@ -21,8 +21,7 @@ fn kangaroo(x1: i32, v1: i32, x2: i32, v2: i32) -> String {
     let v1 = v1 as f64;
     let x2 = x2 as f64;
     let v2 = v2 as f64;
-    dbg!(x1, v1, x2, v2);
-    let y = dbg!((x2 - x1) / (v1 - v2));
+    let y = (x2 - x1) / (v1 - v2);
     if y > 0.0 && y.floor() == y.ceil() && ((v1 - v2) != 0.0) {
         "YES".to_string()
     } else {
