@@ -14,17 +14,11 @@ use std::io::{self, BufRead, Write};
 fn max_min(k: i32, mut arr: Vec<i32>) -> i32 {
     let k = k as usize;
     arr.sort();
-    let mut lower = 0;
-    let mut higher = arr.len() - 1;
-
-    while higher - lower > k - 1 {
-        if arr[higher] - arr[higher - 1] > arr[lower + 1] - arr[lower] {
-            higher -= 1;
-        } else {
-            lower += 1;
-        }
+    let mut result = i32::MAX;
+    for i in 0..arr.len() - k {
+        result = result.min(arr[i + k - 1] - arr[i]);
     }
-    arr[higher] - arr[lower]
+    result
 }
 
 fn main() {
