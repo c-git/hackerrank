@@ -12,7 +12,6 @@ use std::io::{self, BufRead, Write};
  */
 
 fn max_min(k: i32, mut arr: Vec<i32>) -> i32 {
-    dbg!(k, &arr);
     let k = k as usize;
     arr.sort();
     let mut lower = 0;
@@ -24,7 +23,6 @@ fn max_min(k: i32, mut arr: Vec<i32>) -> i32 {
         } else {
             lower += 1;
         }
-        dbg!(&arr[lower..=higher]);
     }
     arr[higher] - arr[lower]
 }
