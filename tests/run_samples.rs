@@ -13,7 +13,7 @@ use predicates::prelude::*;
 
 fn get_problem_settings() -> ProblemSettings {
     ProblemSettings {
-        problem_name: "caesar-cipher-1".to_string(), // Change problem name here <-------------------------------------------------------------->
+        problem_name: "min-max".to_string(), // Change problem name here <-------------------------------------------------------------->
         // eval_type: EvalType::Stdout,
         eval_type: EvalType::File(Default::default()),
     }
