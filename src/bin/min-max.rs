@@ -15,7 +15,7 @@ fn max_min(k: i32, mut arr: Vec<i32>) -> i32 {
     let k = k as usize;
     arr.sort();
     let mut result = i32::MAX;
-    for i in 0..arr.len() - k {
+    for i in 0..=arr.len() - k {
         result = result.min(arr[i + k - 1] - arr[i]);
     }
     result
