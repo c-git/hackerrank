@@ -6,7 +6,7 @@ fn is_smart_number(num: i32) -> bool {
     let val = f32::sqrt(num as f32) as i32;
 
     #[allow(clippy::needless_bool)]
-    if num / val == 1 {
+    if val * val == num {
         true
     } else {
         false
