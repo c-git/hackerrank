@@ -1,4 +1,4 @@
-use std::io::{self, BufRead, Write};
+use std::io::{self, BufRead};
 
 /*
  * Complete the 'countSort' function below.
