@@ -13,9 +13,9 @@ use predicates::prelude::*;
 
 fn get_problem_settings() -> ProblemSettings {
     ProblemSettings {
-        problem_name: "countingsort4".to_string(), // Change problem name here <-------------------------------------------------------------->
-        eval_type: EvalType::Stdout,
-        // eval_type: EvalType::File(Default::default()),
+        problem_name: "grid-challenge".to_string(), // Change problem name here <-------------------------------------------------------------->
+        // eval_type: EvalType::Stdout,
+        eval_type: EvalType::File(Default::default()),
     }
 }
 
