@@ -10,19 +10,29 @@ use std::io::{self, BufRead, Write};
  */
 
 fn sansa_xor(arr: &[i32]) -> i32 {
-    let mut result = 0;
-    for subarray_len in 1..=arr.len() {
-        for start in 0..=arr.len() - subarray_len {
-            result ^= xor(&arr[start..subarray_len + start]);
-        }
-    }
-    result
-}
+    // The exponential time algorithm always wasn't going to work but just ran it to ensure it only failed for time to ensure I understood the problem
+    // Then I tried a few cases with powers of 2 to see which values contributed to the solution as I noticed the if the number of times the number
+    // shows up is even then it will not impact the final result because the same number xor with itself is always 0.
+    // So tried some and noticed the pattern
+    // | List length | Answer | Contributing Indices | List Values                   |
+    // | ----------- | ------ | -------------------- | ----------------------------- |
+    // | 1           | 1      | [0]                  | [1]                           |
+    // | 2           | 0      | []                   | [1, 2]                        |
+    // | 3           | 5      | [0, 2]               | [1, 2, 4]                     |
+    // | 4           | 0      | []                   | [1, 2, 4, 8]                  |
+    // | 5           | 21     | [0, 2, 4]            | [1, 2, 4, 8, 16]              |
+    // | 6           | 0      | []                   | [1, 2, 4, 8, 16, 32]          |
+    // | 7           | 85     | [0, 2, 4, 6]         | [1, 2, 4, 8, 16, 32, 64]      |
+    // | 8           | 0      | []                   | [1, 2, 4, 8, 16, 32, 64, 128] |
+    // Only odd length lists have a non zero result and only even indices are included
 
-fn xor(arr: &[i32]) -> i32 {
-    debug_assert!(!arr.is_empty());
-    let mut result = arr[0];
-    for val in arr.iter().skip(1) {
+    if arr.len() % 2 == 0 {
+        return 0;
+    }
+
+    let mut result = 0;
+    for val in arr.iter().step_by(2) {
+        // Take all even index values
         result ^= val;
     }
     result
