@@ -3,6 +3,7 @@
         "fptr",
         "hackerrank",
         "lonelyinteger",
+        "sansa",
         "testcases"
     ],
     "code-runner.customCommand": "cargo test --test run_samples"

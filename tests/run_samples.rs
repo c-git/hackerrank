@@ -13,7 +13,7 @@ use predicates::prelude::*;
 
 fn get_problem_settings() -> ProblemSettings {
     ProblemSettings {
-        problem_name: "grid-challenge".to_string(), // Change problem name here <-------------------------------------------------------------->
+        problem_name: "sansa-and-xor".to_string(), // Change problem name here <-------------------------------------------------------------->
         // eval_type: EvalType::Stdout,
         eval_type: EvalType::File(Default::default()),
     }
