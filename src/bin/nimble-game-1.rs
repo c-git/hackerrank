@@ -10,15 +10,11 @@ use std::io::{self, BufRead, Write};
  */
 
 fn nimble_game(s: &[i32]) -> String {
-    // Count the number of squares other than 0 that have a odd number of coins.
-    // All other squares allow for mirror play.
-    // If there is an odd number of squares with an odd total then first wins because second will end up with no move else second wins
-    let odd_sum: usize = s
-        .iter()
-        .skip(1)
-        .map(|&x| if x % 2 == 0 { 0 } else { 1 })
-        .sum();
-    if odd_sum % 2 == 1 {
+    // Understood the reduction to the nim game given in the editorial even thought I don't understand the nim game (but I understood the solution)
+    let result: usize = s.iter().enumerate().skip(1).fold(0, |acc, (i, &element)| {
+        acc ^ if element % 2 == 0 { 0 } else { i }
+    });
+    if result > 0 {
         "First".to_string()
     } else {
         "Second".to_string()
