@@ -10,25 +10,34 @@ use std::io::{self, BufRead, Write};
  */
 
 fn misere_nim(s: &[i32]) -> String {
-    // A column with exactly 1 stone takes exactly 1 move
-    // If a column has more than 1 stone then it can be done in either 1 or 2 moves or more but then it can still be finished in 1 or 2 moves
-    // For "First" to win there must be an even number of moves played. We can think of the columns as pairing up
-    // each column with 1 matches with each other column with 1 unless there is an odd amount then 1 will remain
-    // same for the columns with more than 1, they can pair off unless there is an odd amount then it guarantees 2 moves
-    // because the other player cannot mirror the move or remove a 2 column if left as 2 or more move column
+    // I was wrong, there was a flaw in my reasoning and I don't quite know what it was and the editorial didn't
+    // quite clear it up but reimplementing their explanation here.
+    // Do xor sum unless all entries and first wins if sum is > 0,
+    // unless 1 is the only value in the input then give result based on cardinality of input. If even then first wins else they lose.
+    // Will have to come back to this it's not clear why this is the solution
 
-    let mut result = 0; // First wins if this number is divisible by 2. (0 counts as divisible by 2)
-
-    for &val in s {
-        debug_assert!(val > 0, "Value cannot be 0 based on constraints");
-        result ^= if val == 0 { 1 } else { 2 };
-    }
-
-    if result & 2 == 0 {
-        "First".to_string()
+    if s.iter().all(|&x| x == 1) {
+        // All entries are 1
+        if s.len() % 2 == 0 {
+            "First"
+        } else {
+            "Second"
+        }
     } else {
-        "Second".to_string()
+        // Use xor sum approach
+        let mut xor_sum = 0;
+        for &val in s {
+            debug_assert!(val > 0);
+            xor_sum ^= val;
+        }
+
+        if xor_sum > 0 {
+            "First"
+        } else {
+            "Second"
+        }
     }
+    .to_string()
 }
 
 fn main() {
