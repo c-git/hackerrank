@@ -13,7 +13,11 @@ fn nimble_game(s: &[i32]) -> String {
     // Count the number of squares other than 0 that have a odd number of coins.
     // All other squares allow for mirror play.
     // If there is an odd number of squares with an odd total then first wins because second will end up with no move else second wins
-    let odd_sum: usize = s.iter().map(|&x| if x % 2 == 0 { 0 } else { 1 }).sum();
+    let odd_sum: usize = s
+        .iter()
+        .skip(1)
+        .map(|&x| if x % 2 == 0 { 0 } else { 1 })
+        .sum();
     if odd_sum % 2 == 1 {
         "First".to_string()
     } else {
