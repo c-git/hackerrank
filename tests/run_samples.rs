@@ -5,6 +5,8 @@ use std::{
     str,
 };
 
+use pretty_assertions::assert_eq; // COMMENT THIS OUT IF YOU WANT NO COLOR
+
 // Used for writing assertions
 use assert_cmd::prelude::*;
 
