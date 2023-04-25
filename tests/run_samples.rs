@@ -15,7 +15,7 @@ use predicates::prelude::*;
 
 fn get_problem_settings() -> ProblemSettings {
     ProblemSettings {
-        problem_name: "recursive-digit-sum".to_string(), // Change problem name here <-------------------------------------------------------------->
+        problem_name: "counter-game".to_string(), // Change problem name here <-------------------------------------------------------------->
         // eval_type: EvalType::Stdout,
         eval_type: EvalType::File(Default::default()),
     }
