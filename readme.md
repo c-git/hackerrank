@@ -16,9 +16,9 @@ A separate binary is created for each problem. They can be found in `src/bin`. E
 7. Update the problem name in `tests/run_samples.rs`.
 8. Determine the expected output of the algorithm.
 9. Set type of evaluation used for problem in `tests/run_samples.rs`.
-10. Create create a new file in `src/bin` with the name of the problem followed by `.rs`.
+10. Create a new file in `src/bin` with the name of the problem followed by `.rs`.
 11. Read problem description on website and write your solution.
-12. Use `cargo test --test run_samples` to run the test cases.d to the screen).
+12. Use `cargo test --test run_samples` to run the test cases
 
 # Detailed Steps
 
@@ -42,6 +42,6 @@ Assumes you have the repo cloned locally. Uses `/` in instructions if you use Wi
      - Look for a line similar to `println!("{}", result.join(" "));` near the bottom of main.
      - Sometimes it's just in the question as it tells you to print your output
 9. Set type of evaluation used for problem in `tests/run_samples.rs`, on the line following the name of the problem from the step above.
-10. Create create a new file in `src/bin` with the name of the problem followed by `.rs` eg. `countingsort1.rs` (Must match name set in `tests/run_samples.rs`).
+10. Create a new file in `src/bin` with the name of the problem followed by `.rs` eg. `countingsort1.rs` (Must match name set in `tests/run_samples.rs`).
 11. Read problem description on website and write your solution.
 12. Then just use `cargo test --test run_samples` to run the test cases on your solution (filtered to just `run_samples` to limit amount of junk printed to the screen).
