@@ -12,12 +12,7 @@ use std::io::{self, BufRead, Write};
 fn counter_game(mut n: i64) -> String {
     // Based on editorial alternate solution
     n -= 1;
-    let mut bits_count = 0;
-
-    while n > 0 {
-        bits_count += n % 2;
-        n /= 2;
-    }
+    let bits_count = n.count_ones();
 
     if bits_count % 2 == 0 {
         "Richard".to_owned()
