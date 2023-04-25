@@ -13,7 +13,7 @@ fn grid_challenge(grid: &[String]) -> String {
     // Convert input into vec
     let mut input: Vec<Vec<char>> = vec![];
     for row in grid {
-        let mut row: Vec<char> = row.chars().into_iter().collect();
+        let mut row: Vec<char> = row.chars().collect();
         row.sort();
         input.push(row);
     }
