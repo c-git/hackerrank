@@ -10,7 +10,7 @@ use std::io::{self, BufRead, Write};
  */
 
 fn forming_magic_square(s: &[Vec<i32>]) -> i32 {
-    // First attempt brute force to find possible solutions and compare
+    // First attempt brute force to find possible solutions and compare (disappointed to find this is the expected answer based on editorial)
     let possible_solutions = [
         [vec![2, 7, 6], vec![9, 5, 1], vec![4, 3, 8]],
         [vec![2, 9, 4], vec![7, 5, 3], vec![6, 1, 8]],
