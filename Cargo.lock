@@ -91,6 +91,7 @@ name = "hackerrank"
 version = "0.1.0"
 dependencies = [
  "assert_cmd",
+ "itertools",
  "predicates",
  "pretty_assertions",
 ]

@@ -15,7 +15,7 @@ use predicates::prelude::*;
 
 fn get_problem_settings() -> ProblemSettings {
     ProblemSettings {
-        problem_name: "an-interesting-game-1".to_string(), // Change problem name here <-------------------------------------------------------------->
+        problem_name: "magic-square-forming".to_string(), // Change problem name here <-------------------------------------------------------------->
         // eval_type: EvalType::Stdout,
         eval_type: EvalType::File(Default::default()),
     }
