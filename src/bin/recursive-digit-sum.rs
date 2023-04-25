@@ -12,16 +12,18 @@ use std::io::{self, BufRead, Write};
  */
 
 fn super_digit(n: &str, k: i32) -> i32 {
+    // Wasn't able to understand the editorial but looking at someone else's solution I discovered that the mistake was adding k times instead of multiplying by k
+    // Originally made a mistake in check if k * digits_sum was the same as adding each of the times.
+
     if n.len() <= 1 {
         return n.parse().unwrap();
     }
-    let mut digits_sum: u128 = 0;
-    for _ in 0..k as usize {
-        digits_sum += n
-            .chars()
-            .map(|c| c.to_digit(10).unwrap() as u128)
-            .sum::<u128>();
-    }
+    let mut digits_sum: usize = 0;
+    digits_sum += n
+        .chars()
+        .map(|c| c.to_digit(10).unwrap() as usize)
+        .sum::<usize>();
+    digits_sum *= k as usize;
 
     while digits_sum > 9 {
         let mut value = digits_sum;
