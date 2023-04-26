@@ -58,10 +58,17 @@ fn bomber_man(n: i32, grid: &[String]) -> Vec<String> {
     }
     let row_count = board.len();
     let col_count = board[0].len();
+    let mut states: Vec<Vec<String>> = vec![];
+
+    // Adjust n to reduce repeated iterations
+    let n = if n <= 1 { n } else { (n - 2) % 4 + 2 };
 
     // Run simulation
-    for i in 1..=n {
-        let place_bombs = i % 2 == 0;
+    for time_step in 1..=n {
+        #[cfg(debug_assertions)]
+        print_board(&board, &mut states, time_step);
+
+        let place_bombs = time_step % 2 == 0;
         for row in 0..row_count {
             for col in 0..col_count {
                 let cell = &mut board[row][col];
@@ -105,7 +112,42 @@ fn bomber_man(n: i32, grid: &[String]) -> Vec<String> {
     }
 
     // Convert board state into output
+    convert_board_to_strings(&board)
+}
+
+fn print_board(board: &[Vec<Cell>], states: &mut Vec<Vec<String>>, time_step: i32) {
+    let to_print = convert_board_to_strings(board);
+
+    let state = get_or_insert_state(states, &to_print);
+
+    println!("\n\nTime: {time_step}. State: {state}\n");
+
+    for i in 0..to_print.len() {
+        print!("{}", to_print[i]);
+
+        if i != to_print.len() - 1 {
+            println!();
+        }
+    }
+}
+
+fn get_or_insert_state(states: &mut Vec<Vec<String>>, to_print: &Vec<String>) -> usize {
+    if let Some(i) =
+        states
+            .iter()
+            .enumerate()
+            .find_map(|(i, x)| if *x == *to_print { Some(i) } else { None })
+    {
+        i
+    } else {
+        states.push(to_print.clone());
+        states.len() - 1
+    }
+}
+
+fn convert_board_to_strings(board: &[Vec<Cell>]) -> Vec<String> {
     let mut result = vec![];
+    let col_count = board[0].len();
     for row_board in board {
         let mut row_output: String = String::with_capacity(col_count);
         row_board.iter().for_each(|x| row_output.push(x.into()));
